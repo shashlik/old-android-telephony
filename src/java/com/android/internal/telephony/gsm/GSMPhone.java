@@ -167,40 +167,40 @@ public class GSMPhone extends PhoneBase {
         mCi.setOnSuppServiceNotification(this, EVENT_SSN, null);
         mSST.registerForNetworkAttached(this, EVENT_REGISTERED_TO_NETWORK, null);
 
-        if (DBG_PORT) {
-            try {
-                //debugSocket = new LocalServerSocket("com.android.internal.telephony.debug");
-                mDebugSocket = new ServerSocket();
-                mDebugSocket.setReuseAddress(true);
-                mDebugSocket.bind (new InetSocketAddress("127.0.0.1", 6666));
-
-                mDebugPortThread
-                    = new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                for(;;) {
-                                    try {
-                                        Socket sock;
-                                        sock = mDebugSocket.accept();
-                                        Rlog.i(LOG_TAG, "New connection; resetting radio");
-                                        mCi.resetRadio(null);
-                                        sock.close();
-                                    } catch (IOException ex) {
-                                        Rlog.w(LOG_TAG,
-                                            "Exception accepting socket", ex);
-                                    }
-                                }
-                            }
-                        },
-                        "GSMPhone debug");
-
-                mDebugPortThread.start();
-
-            } catch (IOException ex) {
-                Rlog.w(LOG_TAG, "Failure to open com.android.internal.telephony.debug socket", ex);
-            }
-        }
+//         if (DBG_PORT) {
+//             try {
+//                 //debugSocket = new LocalServerSocket("com.android.internal.telephony.debug");
+//                 mDebugSocket = new ServerSocket();
+//                 mDebugSocket.setReuseAddress(true);
+//                 mDebugSocket.bind (new InetSocketAddress("127.0.0.1", 6666));
+// 
+//                 mDebugPortThread
+//                     = new Thread(
+//                         new Runnable() {
+//                             @Override
+//                             public void run() {
+//                                 for(;;) {
+//                                     try {
+//                                         Socket sock;
+//                                         sock = mDebugSocket.accept();
+//                                         Rlog.i(LOG_TAG, "New connection; resetting radio");
+//                                         mCi.resetRadio(null);
+//                                         sock.close();
+//                                     } catch (IOException ex) {
+//                                         Rlog.w(LOG_TAG,
+//                                             "Exception accepting socket", ex);
+//                                     }
+//                                 }
+//                             }
+//                         },
+//                         "GSMPhone debug");
+// 
+//                 mDebugPortThread.start();
+// 
+//             } catch (IOException ex) {
+//                 Rlog.w(LOG_TAG, "Failure to open com.android.internal.telephony.debug socket", ex);
+//             }
+//         }
 
         //Change the system property
         SystemProperties.set(TelephonyProperties.CURRENT_ACTIVE_PHONE,
